@@ -4,39 +4,52 @@
 //     console.log('links:', links);
 // })
 
-const titleClickHandler = function(event){
-    console.log('link was clicked')
-
-    console.log(event)
-  /* remove class 'active' from all article links  */
+const titleClickHandler = function (event) {
+    event.preventDefault();
+    const clickedElement = this;
+    console.log('Link was clicked!');
+   
+ 
+    /* [DONE] remove class 'active' from all article links  */
 
     const activeLinks = document.querySelectorAll('.titles a.active');
-    for(let activeLink of activeLinks){
+    for (let activeLink of activeLinks) {
         activeLink.classList.remove('active');
     }
+    
 
-  /* remove class 'active' from all articles */
+    /* [DONE] add class 'active' to the clicked link */
+
+    console.log('clickedElement:', clickedElement);
+    clickedElement.classList.add('active');
+
+    /* [DONE] remove class 'active' from all articles */
+
     const activeArticles = document.querySelectorAll('.active');
 
-    for(let activeArticle of activeArticles){
+    for (let activeArticle of activeArticles) {
 
-        activeArticle.classList.remove('active')
+        activeArticle.classList.remove('active');
     }
 
-  /* add class 'active' to the clicked link */
-   
+    console.log('clickedElement (with plus): ' + clickedElement)
 
-  /* get 'href' attribute from the clicked link */
+    /* get 'href' attribute from the clicked link */
+    const articleSelector = clickedElement.getAttribute('href');
+    console.log('href' , articleSelector);
+    
+    
 
-  /* find the correct article using the selector (value of 'href' attribute) */
+    /* find the correct article using the selector (value of 'href' attribute) */
+    const targetArticle = document.querySelector(articleSelector);
+    console.log(targetArticle);
+    /* add class 'active' to the correct article */
+    
 
-  /* add class 'active' to the correct article */
 }
 
+const links = document.querySelectorAll('.titles a');
 
-const links = document.querySelectorAll ('.titles a');
-
-for(let link of links){
+for (let link of links) {
     link.addEventListener('click', titleClickHandler);
 }
-
