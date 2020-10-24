@@ -25,11 +25,11 @@
       activeArticle.classList.remove('active');
     }
 
-    console.log('clickedElement (with plus): ' + clickedElement);
+    //console.log('clickedElement (with plus): ' + clickedElement);
 
     /* get 'href' attribute from the clicked link */
     const articleSelector = clickedElement.getAttribute('href');
-    console.log('href', articleSelector);
+    //console.log('href', articleSelector);
 
 
     /* find the correct article using the selector (value of 'href' attribute) */
@@ -44,10 +44,10 @@
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles',
     optArticleTagsSelector = '.post-tags .list',
-    optPostAuthor = '.post-author';
-  // optTagsListSelector = '.tags.list';
+    optPostAuthor = '.post-author',
+    optTagsListSelector = '.tags.list';
 
-  const generateTitleList = function (customSelector = '') {
+  const generateTitleList = function(customSelector='') {
 
     /* remove contents of titleList */
     const titleList = document.querySelector(optTitleListSelector);
@@ -126,6 +126,7 @@
   };
 
   generateTags();
+
   const generateAutors = function () {
     const articles = document.querySelectorAll(optArticleSelector);
 
@@ -157,7 +158,7 @@
       /* END LOOP: for each active tag link */
     }
     /* find all tag links with "href" attribute equal to the "href" constant */
-    const tagLinks = document.querySelectorAll(tag);
+    const tagLinks = document.querySelectorAll('a[href="' + href +'"]');
     /* START LOOP: for each found tag link */
     for (let tagLink of tagLinks) {
       /* add class active */
@@ -179,4 +180,10 @@
     }
   }
   addClickListenersToTags();
+
+
+
+
+
+  
 }
