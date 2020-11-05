@@ -12,7 +12,7 @@
     optPostAuthor = '.post-author',
     optTagsListSelector = '.tags.list',
     optCloudClassCount = 5,
-    optAutorListSelector = '',
+    optAutorListSelector = '.authors',
     optCloudClassPrefix = 'tag-size-';
 
   const titleClickHandler = function (event) {
@@ -178,7 +178,7 @@
       /* END LOOP: for every article: */
     }
     /* [NEW] find list of tags in right column */
-    const tagList = document.querySelector('.tags');
+    const tagList = document.querySelector(optTagsListSelector);
     /* [NEW] add html from allTags to tagList */
     // tagList.innerHTML = allTags.join(' ');
     /* [NEW] create variable for all links HTML code */
@@ -199,11 +199,9 @@
   generateTags();
 
   const generateAutors = function () {
-    let allAuthors = [];
+    let allAuthors = {};
 
     const articles = document.querySelectorAll(optArticleSelector);
-    const authorParams = calculateAuthorParams(allAuthors);
-    console.log('author:', authorParams);
 
     for (let article of articles) {
 
@@ -211,15 +209,24 @@
       const articleAuthor = article.getAttribute('data-author');
       const linkHTML = `<li><a href="#author-${articleAuthor}">${articleAuthor}</a></li>`;
       authorWrapper.innerHTML = linkHTML;
-     
-      if (allAuthors.indexOf(linkHTML) == -1) {
-        allAuthors.push(linkHTML);
+
+      if (!allAuthors[articleAuthor]) {
+        /* [NEW] add generated code to allTags array */
+        allAuthors[articleAuthor] = 1;
+      } else {
+        allAuthors[articleAuthor]++;
       }
+    
+
+      let html = '';
+      for (let author in allAuthors) {
+
+        html += `<li><a href ="#author -${author}">${author} ${allAuthors[articleAuthor]} </a></li>`;
+      }
+
+      const authorList = document.querySelector(optAutorListSelector);
+      authorList.innerHTML = html;
     }
-
-    const authorList = document.querySelector('.authors');
-    authorList.innerHTML = allAuthors.join('');
-
   };
 
   generateAutors();
@@ -264,10 +271,5 @@
     }
   }
   addClickListenersToTags();
-
-
-
-
-
 
 }
