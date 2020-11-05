@@ -314,6 +314,24 @@
     generateTitleList('[data-tags~="' + tag + '"]');
   };
 
+  const authorClickHandler = function (event) {
+
+    event.preventDefault();
+    const clickedElement = this;
+    const href = clickedElement.getAttribute('href');
+    const tag = href.replace('#author-', '');
+    const activeAuthorLinks = document.querySelectorAll('a.active[href^="#author-"]');
+    for (let activeAuthorLink of activeAuthorLinks) {
+      activeAuthorLink.classList.remove('active');
+    }
+    const authorLinks = document.querySelectorAll('a[href="' + href + '"]');
+    for (let authorLink of authorLinks) {
+    
+      authorLink.classList.add('active');
+    
+    }
+  };
+
   function addClickListenersToTags() {
     /* find all links to tags */
 
@@ -324,5 +342,15 @@
     }
   }
   addClickListenersToTags();
+
+
+
+function addClickListenersToAuthors() {
+  const links = document.querySelectorAll('a[href^="#author-"]');
+  for (let link of links) {
+    link.addEventListener('click', authorClickHandler);
+  }
+}
+addClickListenersToAuthors();
 
 }
