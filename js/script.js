@@ -319,7 +319,7 @@
     event.preventDefault();
     const clickedElement = this;
     const href = clickedElement.getAttribute('href');
-    const tag = href.replace('#author-', '');
+    const author = href.replace('#author-', '');
     const activeAuthorLinks = document.querySelectorAll('a.active[href^="#author-"]');
     for (let activeAuthorLink of activeAuthorLinks) {
       activeAuthorLink.classList.remove('active');
@@ -330,6 +330,8 @@
       authorLink.classList.add('active');
     
     }
+    generateTitleList('[data-author="' + author + '"]');
+  
   };
 
   function addClickListenersToTags() {
